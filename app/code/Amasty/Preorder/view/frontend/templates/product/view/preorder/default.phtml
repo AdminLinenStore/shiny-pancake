@@ -1,0 +1,25 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Preorder
+ */
+?>
+<?php /* @var $block \Amasty\Preorder\Block\Product\View\Preorder\ProductDefault */?>
+
+<?php
+if(!$block->canShowBlock()) {
+    return;
+}
+?>
+<script type="text/javascript">
+    require(['jquery', 'Amasty_Preorder/js/product/preorder'], function($) {
+        $widget = $.mage.amastyPreorder({
+            aviabilityElement: $("#product-addtocart-button").parents(".product-info-main").first().find('.stock'),
+            addToCartButton: $("#product-addtocart-button span"),
+            preOrderNote: '<?=$block->getPreorderNote();?>',
+            addToCartLabel: '<?=$block->getCartLabel()?>'
+        });
+        $widget.enable();
+    });
+</script>
