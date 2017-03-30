@@ -1,0 +1,2 @@
+.page-wrapper{max-width:100%;}
+.navigation, .breadcrumbs, .page-header .header.panel, .header.content, .footer.content, .page-wrapper > .widget, .page-wrapper > .page-bottom, .block.category.event, .top-container, .page-main, .page-container > .content, .jumbotron > .container{max-width:100%;}

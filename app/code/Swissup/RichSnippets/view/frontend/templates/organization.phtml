@@ -1,0 +1,28 @@
+<?php if ($organizaton = $block->canShowContent()) : ?>
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "url" :  "<?php echo $organizaton['url']; ?>",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "<?php echo $organizaton['locality']; ?>",
+            "postalCode": "<?php echo $organizaton['postalcode']; ?>",
+            "streetAddress": "<?php echo $organizaton['street']; ?>"
+        },
+        "name": "<?php echo $organizaton['name']; ?>",
+        "telephone": "<?php echo $organizaton['phone']; ?>",
+        "email": "<?php echo $organizaton['email']; ?>",
+        "sameAs": [
+            [
+                "https://twitter.com/<?php echo $organizaton['twitter']; ?>",
+                "https://www.facebook.com/<?php echo $organizaton['facebook']; ?>",
+                "https://plus.google.com/<?php echo $organizaton['googleplus']; ?>",
+                "https://www.linkedin.com/company/<?php echo $organizaton['linkedin']; ?>",
+                "https://www.pinterest.com/<?php echo $organizaton['pinterest']; ?>",
+                "https://instagram.com/<?php echo $organizaton['instagram']; ?>"
+            ]
+       ]
+    }
+</script>
+<?php endif ?>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Swissup\Easybanner\Api\Data\BannerInterface" type="Swissup\Easybanner\Model\Banner" />
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="easybanner_banner_listing_data_source" xsi:type="string">Swissup\Easybanner\Model\ResourceModel\Banner\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Swissup\Easybanner\Model\ResourceModel\Banner\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">swissup_easybanner_banner</argument>
+            <argument name="eventPrefix" xsi:type="string">easybanner_banner_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">easybanner_banners_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Swissup\Easybanner\Model\ResourceModel\Banner</argument>
+        </arguments>
+    </type>
+    <virtualType name="EasybannerBannerGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="EasybannerBannerGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Swissup\Easybanner\Model\ResourceModel\Banner\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">EasybannerBannerGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <preference for="Swissup\Easybanner\Api\Data\PlaceholderInterface" type="Swissup\Easybanner\Model\Placeholder" />
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="easybanner_placeholder_listing_data_source" xsi:type="string">Swissup\Easybanner\Model\ResourceModel\Placeholder\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Swissup\Easybanner\Model\ResourceModel\Placeholder\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">swissup_easybanner_placeholder</argument>
+            <argument name="eventPrefix" xsi:type="string">easybanner_placeholder_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">easybanner_placeholders_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Swissup\Easybanner\Model\ResourceModel\Placeholder</argument>
+        </arguments>
+    </type>
+    <virtualType name="EasybannerPlaceholderGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="EasybannerPlaceholderGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Swissup\Easybanner\Model\ResourceModel\Placeholder\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">EasybannerPlaceholderGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+</config>

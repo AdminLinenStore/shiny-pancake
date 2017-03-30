@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Swissup\Easybanner\Block\Adminhtml\Banner\Edit" name="easybanner_banner_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Swissup\Easybanner\Block\Adminhtml\Banner\Edit\Tabs" name="easybanner_banner_edit_tabs">
+                <block class="Swissup\Easybanner\Block\Adminhtml\Banner\Edit\Tab\Main" name="easybanner_banner_edit_tab_main"/>
+                <block class="Swissup\Easybanner\Block\Adminhtml\Banner\Edit\Tab\Content" name="easybanner_banner_edit_tab_content"/>
+                <block class="Swissup\Easybanner\Block\Adminhtml\Banner\Edit\Tab\Conditions" name="easybanner_banner_edit_tab_conditions"/>
+                <block class="Swissup\Easybanner\Block\Adminhtml\Banner\Edit\Tab\Statistics" name="easybanner_banner_edit_tab_statistics"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">easybanner_banner_edit_tab_main</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">content_section</argument>
+                    <argument name="block" xsi:type="string">easybanner_banner_edit_tab_content</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">conditions_section</argument>
+                    <argument name="block" xsi:type="string">easybanner_banner_edit_tab_conditions</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">statistics_section</argument>
+                    <argument name="block" xsi:type="string">easybanner_banner_edit_tab_statistics</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="footer">
+            <block class="Magento\Framework\View\Element\Template" name="easybanner.banner.script" template="Swissup_Easybanner::js.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

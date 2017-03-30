@@ -1,0 +1,52 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $helper \Magento\Search\Helper\Data */
+$helper = $this->helper('Magento\Search\Helper\Data');
+$formAction = $helper->getResultUrl();
+
+$ajaxsearchHelper = $this->helper('Swissup\Ajaxsearch\Helper\Data');
+?>
+
+
+<div class="block block-search block-swissup-ajaxsearch <?php echo $ajaxsearchHelper->getBlockCssClass() ?>">
+    <div class="block block-title">
+        <strong><?php /* @escapeNotVerified */ echo __('Search'); ?></strong>
+    </div>
+    <div class="block block-content">
+        <form class="form minisearch" id="search_mini_form" action="<?php /* @escapeNotVerified */ echo $formAction; ?>" method="get">
+            <div class="field search">
+                <label class="label" for="search" data-role="minisearch-label">
+                    <span><?php /* @escapeNotVerified */ echo __('Search'); ?></span>
+                </label>
+                <div class="control">
+                    <input id="search"
+                           type="text"
+                           name="<?php /* @escapeNotVerified */ echo $helper->getQueryParamName() ?>"
+                           value="<?php /* @escapeNotVerified */ echo $helper->getEscapedQueryText() ?>"
+                           placeholder="<?php /* @escapeNotVerified */ echo __('Search entire store here...'); ?>"
+                           class="input-text typeahead"
+                           maxlength="<?php /* @escapeNotVerified */ echo $helper->getMaxQueryLength();?>"
+                           role="combobox"
+                           aria-haspopup="false"
+                           aria-autocomplete="both"
+                           autocomplete="off"/>
+                    <?php echo $block->getChildHtml() ?>
+                </div>
+            </div>
+            <div class="actions">
+                <button type="submit"
+                        title="<?php echo $block->escapeHtml(__('Search')) ?>"
+                        class="action search">
+                    <span><?php /* @escapeNotVerified */ echo __('Search'); ?></span>
+                </button>
+                <span title="<?php echo $block->escapeHtml(__('Close')) ?>"
+                        class="action close">
+                    <span>×</span>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>

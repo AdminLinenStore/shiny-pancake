@@ -1,0 +1,15 @@
+<?php if ($website = $block->canShowContent()) : ?>
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "url": "<?php echo $website['siteurl'] ?>",
+        "name": "<?php echo $website['sitename'] ?>",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "<?php echo $this->helper('Magento\CatalogSearch\Helper\Data')->getResultUrl()?>?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+</script>
+<?php endif ?>

@@ -1,0 +1,52 @@
+<?php
+    $isLoggedIn   = $block->isCustomerLoggedIn();
+    $configHelper = $block->getConfigHelper();
+    $urlHelper    = $block->getUrlHelper();
+    $formHelper   = $block->getFormHelper();
+
+    $isEnabledGravatar       = $configHelper->isEnabledGravatar();
+
+    $question = $block->getQuestion();
+?>
+<div class="askit-answer-form">
+    <form action="<?php /* @escapeNotVerified */ echo $block->getNewAnswerAction(); ?>" method="POST">
+        <?php if ($isLoggedIn && $isEnabledGravatar) :?>
+        <div class="askit-item-avatar askit-item-answer-hero-avatar">
+            <?php
+                $_email = $formHelper->getUserEmail();
+                /* @escapeNotVerified */ echo $urlHelper->getGravatar($_email, 100);
+            ?>
+        </div>
+        <?php endif;?>
+        <input type="hidden" name="parent_id" value="<?php /* @escapeNotVerified */ echo $question->getId()?>"/>
+        <fieldset class="fieldset">
+            <?php if (!$isLoggedIn) :?>
+            <div class="field name required">
+                <label class="label" for="customer_name"><span><?php /* @escapeNotVerified */ echo __('Name') ?></span></label>
+                <div class="control">
+                    <input name="customer_name" id="customer_name" title="<?php /* @escapeNotVerified */echo __('Name') ?>" value="<?php echo $block->escapeHtml($formHelper->getUserName()) ?>" class="input-text" type="text" />
+                </div>
+            </div>
+            <div class="field email required">
+                <label class="label" for="email"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+                <div class="control">
+                    <input name="email" id="email" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" value="<?php echo $block->escapeHtml($formHelper->getUserEmail()) ?>" class="input-text" type="email" />
+                </div>
+            </div>
+            <?php endif; ?>
+            <div class="field text required">
+                <label class="label" for="text"><span><?php /* @escapeNotVerified */ echo __('Your Answer') ?></span></label>
+                <div class="control">
+                    <textarea name="text"><?php echo $block->escapeHtml($formHelper->getPostValue('text')) ?></textarea>
+                </div>
+            </div>
+            <?php echo $block->getChildHtml('captcha'); ?>
+      </fieldset>
+
+      <div class="askit-answer-form__actions">
+          <button type="submit" class="action button button--confirm">
+              <span><?php /* @escapeNotVerified */ echo __('Leave a Reply'); ?></span>
+          </button>
+      </div>
+  </form>
+</div>

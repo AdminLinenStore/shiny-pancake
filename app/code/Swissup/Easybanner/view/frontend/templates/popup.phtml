@@ -1,0 +1,32 @@
+<?php
+    $_banners = $block->getBanners();
+    $_conditions = [];
+?>
+<?php if (count($_banners) > 0) : ?>
+    <div class="easybanner-popup-banner box box-easybanner-placeholder" style="display:none;">
+        <div class="easybanner-placeholder-wrapper">
+        <?php foreach ($_banners as $_banner): ?>
+            <?php
+                $bannerBlock = $this->getLayout()->createBlock('Swissup\Easybanner\Block\Banner');
+                $bannerBlock->setBannerObject($_banner);
+                $bannerBlock->setPopupMode(true);
+                $_id = $this->getHtmlId($_banner->getIdentifier());
+
+                $mode = 'lightbox';
+                if (3 == (int)$_banner->getType()) {
+                    $mode = 'awesomebar';
+                }
+            ?>
+            <div class="easybanner-banner <?php echo $this->getClassName($_banner->getIdentifier(), $mode) ?>" id="<?php echo $_id ?>">
+                <?php echo $bannerBlock->toHtml() ?>
+            </div>
+            <?php $_conditions[$_id] = $bannerBlock->getJsConditions(); ?>
+        <?php endforeach ?>
+        </div>
+    </div>
+<script>
+    require(['easybanner'], function(easybanner) {
+        easybanner.init(<?php echo $this->getJsonConditions($_conditions) ?>)
+    });
+</script>
+<?php endif ?>

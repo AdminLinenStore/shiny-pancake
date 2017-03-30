@@ -1,0 +1,69 @@
+<?php
+    $isLoggedIn   = $block->isCustomerLoggedIn();
+    $configHelper = $block->getConfigHelper();
+
+    $isAllowedCustomerAnswer = $configHelper->isAllowedCustomerQuestion();
+    $isAllowedGuestAnswer    = $configHelper->isAllowedGuestAnswer();
+    $isEnabledGravatar       = $configHelper->isEnabledGravatar();
+
+    $showNewAnswerForm = ($isAllowedCustomerAnswer && $isLoggedIn) || $isAllowedGuestAnswer;
+    $collection = $this->getCollection();
+    if (0 == $collection->getSize()) {
+        return;
+    }
+?>
+<div class="block">
+    <div class="title block-title">
+        <strong><?php /* @escapeNotVerified */ echo __('Questions') ?></strong>
+    </div>
+    <div class="block-content">
+
+        <div class="toolbar askit-toolbar">
+            <?php /* @escapeNotVerified */ echo $block->getChildHtml('pager')?>
+        </div>
+
+        <ol class="items askit-items<?php echo $isEnabledGravatar ? '' : ' no-avatar' ?>">
+        <?php
+        $blockQuestionView = $block->getChildBlock('askit_question_view');
+        $blockAnswerView = $block->getChildBlock('askit_answer_view');
+        $blockAnswerNew = $block->getChildBlock('askit_answer_form');
+        foreach ($collection as $question) : ?>
+            <li class="item askit-item">
+                <?php /* @escapeNotVerified */ echo $blockQuestionView
+                    ->setQuestion($question)
+                    ->toHtml()
+                ?>
+
+                <div class="askit-item-actions">
+                    <?php $answerCollecion = $question->getAnswerCollection();?>
+                    <?php if ($answerCollecion->getSize() > 0 || $showNewAnswerForm) :?>
+                    <div class="askit-item-trigger">
+                        <?php /* @escapeNotVerified */ echo $answerCollecion->getSize();?>
+                        <span><?php /* @escapeNotVerified */ echo ' ' . __($answerCollecion->getSize() == 1 ? 'answer' : 'answers')?></span>
+                    </div>
+
+                    <ol class="items askit-item-answers">
+                        <?php foreach ($answerCollecion as $answer) :?>
+                        <li class="item askit-item askit-item-answer">
+                            <?php /* @escapeNotVerified */ echo $blockAnswerView
+                                ->setAnswer($answer)
+                                ->toHtml()
+                            ?>
+                        </li>
+                        <?php endforeach;?>
+
+                        <?php if ($showNewAnswerForm) :?>
+                        <li>
+                            <?php /* @escapeNotVerified */ echo $blockAnswerNew
+                            ->setQuestion($question)
+                            ->toHtml()?>
+                        </li>
+                        <?php endif?>
+                    </ol>
+                    <?php endif?>
+                </div>
+            </li>
+        <?php endforeach; ?>
+        </ol>
+    </div>
+</div>

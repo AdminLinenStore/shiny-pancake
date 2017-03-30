@@ -1,0 +1,25 @@
+<?php
+    $bannerID = $this->getRequest()->getParam('banner_id');
+    if (!$bannerID) return;
+    $url = $this->getUrl('*/*/statistic', ["banner_id" => $bannerID]);
+?>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<select id="statistics" name="statistics" title="Statistics" class="select admin__control-select">
+    <option value="1"><?php echo __('Last 7 days') ?></option>
+    <option value="2"><?php echo __('Current Month') ?></option>
+    <option value="3"><?php echo __('Last 6 Month') ?></option>
+    <option value="4"><?php echo __('Last 12 Month') ?></option>
+    <option value="5"><?php echo __('All') ?></option>
+</select>
+
+<div id="banner-statistics" style="max-width: 100%; height: 600px;"/>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'bannerStatistics'
+    ], function ($, bannerStatistics) {
+        $(document).ready(function() {
+            bannerStatistics.init('<?php echo $url ?>', '#statistics');
+        });
+    });
+</script>

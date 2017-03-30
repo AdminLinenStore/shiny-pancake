@@ -1,0 +1,65 @@
+<?php
+    $isLoggedIn = $block->isCustomerLoggedIn();
+    $formHelper = $block->getFormHelper();
+
+    if (!$block->isShow()) {
+        return;
+    }
+?>
+<div class="block">
+    <div class="title block-title">
+        <strong><?php /* @escapeNotVerified */ echo __('Ask Your Question') ?></strong>
+    </div>
+    <div class="block-content">
+        <form action="<?php /* @escapeNotVerified */ echo $block->getAction() ?>" method="post" id="askit-new-question-form" >
+            <div class="field note no-label">
+                <?php /* @escapeNotVerified */ echo __('Jot us a note and we’ll get back to you as quickly as possible.') ?>
+            </div>
+            <fieldset class="fieldset">
+                <?php /* @escapeNotVerified */ echo $block->getBlockHtml('formkey'); ?>
+                <input id="item_type_id" type="hidden" name="item_type_id" value="<?php /* @escapeNotVerified */ echo $block->getItemTypeId()?>" />
+                <input id="item_id" type="hidden" name="item_id" value="<?php /* @escapeNotVerified */ echo $block->getItemId()?>"/>
+
+                <div class="field name required">
+                    <label class="label" for="customer_name"><span><?php /* @escapeNotVerified */ echo __('Name') ?></span></label>
+                    <div class="control">
+                        <input name="customer_name" id="customer_name" title="<?php /* @escapeNotVerified */echo __('Name') ?>" value="<?php echo $block->escapeHtml($formHelper->getUserName()) ?>" class="input-text" type="text" />
+                    </div>
+                </div>
+                <div class="field email required">
+                    <label class="label" for="email"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+                    <div class="control">
+                        <input name="email" id="email" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" value="<?php echo $block->escapeHtml($formHelper->getUserEmail()) ?>" class="input-text" type="email" />
+                    </div>
+                </div>
+
+                <div class="field text required">
+                    <label class="label" for="text"><span><?php /* @escapeNotVerified */ echo __('Question') ?></span></label>
+                    <div class="control">
+                        <textarea name="text" id="text" title="<?php /* @escapeNotVerified */ echo __('Question') ?>" class="input-text" cols="5" rows="3"><?php echo $block->escapeHtml($formHelper->getPostValue('text')) ?></textarea>
+                    </div>
+                </div>
+
+                <?php if ($isLoggedIn) :?>
+                <div class="field">
+                    <label class="label" for="is_private"><span><?php /* @escapeNotVerified */ echo __('Post a private question') ?></span></label>
+                    <div class="control">
+                        <input name="name" id="is_private" title="<?php /* @escapeNotVerified */ echo __('Post a private question') ?>" value="1" type="checkbox" />
+                    </div>
+                </div>
+                <?php else : ?>
+                    <input id="is_private" type="hidden" name="is_private" value="0" />
+                <?php endif ?>
+                <?php echo $block->getChildHtml('captcha'); ?>
+            </fieldset>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <!-- <input type="hidden" name="hideit" id="hideit" value="" /> -->
+                    <button type="submit" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>" class="action submit primary">
+                        <span><?php /* @escapeNotVerified */ echo __('Submit') ?></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

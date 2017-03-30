@@ -1,0 +1,45 @@
+<?php
+    $isLoggedIn   = $block->isCustomerLoggedIn();
+    $configHelper = $block->getConfigHelper();
+    $urlHelper    = $block->getUrlHelper();
+
+    $isAllowHint         = $configHelper->isAllowedHint();
+    $isShareCustomerName = $configHelper->isAllowedShareCustomerName();
+    $isEnabledGravatar   = $configHelper->isEnabledGravatar();
+
+    $answer = $block->getAnswer();
+?>
+<div class="askit-item-avatar askit-item-answer-avatar">
+    <?php if ($isEnabledGravatar) {
+        /* @escapeNotVerified */ echo $urlHelper->getGravatar($answer->getEmail(), 100);
+    }?>
+</div>
+<?php if ($isShareCustomerName) :?>
+<h3 class="askit-item-author">
+    <?php /* @escapeNotVerified */ echo $block->escapeHtml($answer->getCustomerName());?>
+</h3>
+<?php endif;?>
+<h4 class="askit-item-timestamp">
+    <?php /* @escapeNotVerified */ echo $block->escapeHtml($answer->getCreatedTime());?>
+</h4>
+<p class="askit-item-body">
+    <?php /* @escapeNotVerified */ echo nl2br($block->escapeHtml($answer->getText())) ?>
+</p>
+<?php if(0 < $answer->getHint()) : ?>
+    <div class="clearer askit-item-answer-same">
+        <?php /* @escapeNotVerified */ echo __('%1 people found this answer helpful.', $answer->getHint()); ?>
+    </div>
+<?php endif; ?>
+<?php if ($isAllowHint && $isLoggedIn && $this->canVoted($answer->getId())) :?>
+    <div class="askit-item-vote right">
+        <small><?php /* @escapeNotVerified */echo __('Was this Answer Helpful?'); ?>
+            <a href="#" data-post='<?php /* @escapeNotVerified */ echo $block->getPostDataHelper()->getPostData($block->getUrl('askit/vote/inc'), ['id' => $answer->getId()]);?>' class="action">
+                <span><?php /* @escapeNotVerified */ echo __('Yes') ?></span>
+            </a>
+
+            <a href="#" data-post='<?php /* @escapeNotVerified */ echo $block->getPostDataHelper()->getPostData($block->getUrl('askit/vote/dec'), ['id' => $answer->getId()]);?>' class="action">
+                <span><?php /* @escapeNotVerified */ echo __('No') ?></span>
+            </a>
+        </small>
+    </div>
+<?php endif;?>

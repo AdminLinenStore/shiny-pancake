@@ -1,0 +1,40 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php
+/** @var $block \Swissup\Ajaxsearch\Block\Init */
+/** @var $helper \Magento\Search\Helper\Data */
+$ajaxAction = $block->getUrl('search/ajax/suggest', ['_current' => true, '_query' => ['q' => "_QUERY"]]);
+$helper = $this->helper('Magento\Search\Helper\Data');
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "swissup-ajaxsearch": {
+                        "component": "Ajaxsearch",
+                        "options": {
+                            "url": "<?php echo $ajaxAction;?>",
+                            "wildcard": "_QUERY",
+                            "loader": {
+                                "container": ".block-swissup-ajaxsearch .actions .action",
+                                "loaderImage": "<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/loader-1.gif'); ?>"
+                            },
+                            "typeahead": {
+                                "options": {
+                                    "highlight": <?php /* @escapeNotVerified */ echo $block->isHighligth() ? 'true' : 'false';?>,
+                                    "hint": <?php /* @escapeNotVerified */ echo $block->isHint() ? 'true' : 'false';?>,
+                                    "minLength": <?php /* @escapeNotVerified */ echo $helper->getMinQueryLength();?>,
+                                    "classNames": <?php /* @escapeNotVerified */ echo $block->getClassNames()?>
+                                },
+                                "limit": <?php /* @escapeNotVerified */ echo $block->getLimit()?>
+                            },
+                            "options": <?php /* @escapeNotVerified */ echo $block->getJsonConfig()?>
+                        }
+                    }
+                }
+            }
+        }
+    }
+</script>

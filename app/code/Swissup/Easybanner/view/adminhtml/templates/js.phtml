@@ -1,0 +1,26 @@
+<script>
+    require([
+        'jquery',
+    ], function ($) {
+        var bannerMode = $('#banner_mode').val();
+        if ('image' == bannerMode) {
+            $('#banner_html_fieldset').hide();
+        } else {
+            $('#banner_image_fieldset').hide();
+        }
+        $("#banner_mode").change(function() {
+            easybannerShowHideContent();
+        });
+        function easybannerShowHideContent()
+        {
+            var bannerMode = $('#banner_mode').val();
+            if ('image' == bannerMode) {
+                $('#banner_html_fieldset').hide();
+                $('#banner_image_fieldset').show();
+            } else {
+                $('#banner_image_fieldset').hide();
+                $('#banner_html_fieldset').show();
+            }
+        }
+    });
+</script>

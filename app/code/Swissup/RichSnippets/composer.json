@@ -1,0 +1,15 @@
+{
+    "name": "swissup/rich-snippets",
+    "type": "magento2-module",
+    "version": "1.0.4",
+    "license": ["OSL-3.0"],
+    "require": {
+        "swissup/core": "*"
+    },
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "Swissup\\RichSnippets\\": ""
+        }
+    }
+}
