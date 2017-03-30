@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_Shopby
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="amasty_shopby_brand_grid_data_source" xsi:type="string">Amasty\ShopbyBrand\Model\ResourceModel\Slider\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\ShopbyBrand\Model\ResourceModel\Slider\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">amasty_amshopby_option_setting</argument>
+            <argument name="eventPrefix" xsi:type="string">amasty_amshopby_brand_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">amasty_amshopby_brand_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Amasty\Shopby\Model\ResourceModel\OptionSetting</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Theme\Block\Html\Topmenu">
+        <plugin name="amasty_shopby_brand_topmenu" type="Amasty\ShopbyBrand\Plugin\Block\Html\Topmenu" />
+    </type>
+    <type name="Magento\Theme\Block\Html\Title">
+        <plugin name="amasty_shopby_brand_title" type="Amasty\ShopbyBrand\Plugin\Block\Html\Title" />
+    </type>
+</config>
