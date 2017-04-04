@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<?php if (count($block->getOptions())):?>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "optionBase": {
+                    "optionConfig": <?php echo $block->getJsonConfig()?>,
+                    "productConfig": <?php echo $block->getProductJsonConfig()?>,
+                    "localePriceFormat": <?php echo $block->getLocalePriceFormat()?>,
+                    "productFinalPrice": <?php echo $block->getProductFinalPrice()?>,
+                    "productRegularPrice": <?php echo $block->getProductRegularPrice()?>,
+                    "productFinalPriceInclTax": <?php echo $block->getProductFinalPrice(true)?>,
+                    "productRegularPriceInclTax": <?php echo $block->getProductRegularPrice(true)?>,
+                    "displayBothPriceWithAndWithoutTax": "<?php echo $block->getDisplayBothPriceWithAndWithoutTax()?>",
+                    "catalogPriceContainsTax": "<?php echo $block->getCatalogPriceContainsTax()?>"
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

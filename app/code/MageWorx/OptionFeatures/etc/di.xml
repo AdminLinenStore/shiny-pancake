@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Installation -->
+    <type name="MageWorx\OptionBase\Model\Installer">
+        <arguments>
+            <argument name="installSchema" xsi:type="array">
+                <item name="optionfeatures_install_schema_data" xsi:type="object">MageWorx\OptionFeatures\Model\InstallSchema</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="MageWorx\OptionBase\Model\OptionManager">
+        <arguments>
+            <argument name="updateProductInstances" xsi:type="array">
+                <item name="optionfeatures_absolutes" xsi:type="object">MageWorx\OptionFeatures\Model\UpdateProduct\Absolutes</item>
+            </argument>
+        </arguments>
+    </type>
+     <!-- Plugins -->
+    <type name="Magento\Catalog\Model\Product\Type\Price">
+        <plugin name="AroundGetBasePrice" type="MageWorx\OptionFeatures\Plugin\AroundGetBasePrice" sortOrder="10" disabled="false"/>
+    </type>
+    <type name="MageWorx\OptionBase\Block\Product\View\Options">
+        <plugin name="afterGetProductJsonConfig" type="MageWorx\OptionFeatures\Plugin\AfterGetProductJsonConfig" sortOrder="10" disabled="false"/>
+    </type>
+</config>

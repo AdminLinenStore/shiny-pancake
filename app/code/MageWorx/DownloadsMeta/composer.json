@@ -1,0 +1,8 @@
+{
+  "name": "mageworx/module-downloadsmeta",
+  "version": "2.4.1",
+  "type": "metapackage",
+  "require": {
+    "mageworx/module-downloads": "2.4.1"
+  }
+}

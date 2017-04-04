@@ -1,0 +1,19 @@
+{
+    "name": "mageworx/module-optiontemplates",
+    "description": "Templates for Options",
+    "require": {
+        "magento/module-catalog": ">=101.0 <102"
+    },
+    "type": "magento2-module",
+    "version": "2.3.2",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "MageWorx\\OptionTemplates\\": ""
+        }
+    }
+}

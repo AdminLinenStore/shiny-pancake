@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="mageworx_option_module_install">
+        <observer name="MageworxOptionModuleInstall" instance="MageWorx\OptionBase\Observer\Installer"/>
+    </event>
+    <event name="mageworx_option_templates_install">
+        <observer name="MageworxOptionTemplatesInstall" instance="MageWorx\OptionBase\Observer\Installer"/>
+    </event>
+    <event name="catalog_product_load_after">
+        <observer
+                name="MageWorxOptionAddProductBasedAttributes"
+                instance="MageWorx\OptionBase\Observer\AddDataToProductEntity"
+        />
+    </event>
+    <event name="catalog_product_save_after">
+        <observer
+                name="MageWorxOptionSaveProductBasedAttributes"
+                instance="MageWorx\OptionBase\Observer\SaveDataFromProductEntity"
+        />
+    </event>
+</config>
