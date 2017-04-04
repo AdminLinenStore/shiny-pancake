@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="MageWorx\OptionTemplates\Model\OptionConverter">
+        <plugin name="aroundGetOptionsAsArray" type="MageWorx\OptionBase\Plugin\Adminhtml\Product\AroundGetOptionsAsArray" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Magento\Catalog\Model\Product\Option">
+        <plugin name="aroundSaveOptions" type="MageWorx\OptionBase\Plugin\Adminhtml\Product\AroundSaveOptions" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Options\Type\Select">
+        <plugin name="afterSelectToHtml" type="MageWorx\OptionBase\Plugin\Adminhtml\Product\Edit\Tab\Options\Type\Select\AfterToHtml" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Options\Option">
+        <plugin name="afterOptionValuesProduct" type="MageWorx\OptionBase\Plugin\Adminhtml\Product\Edit\Tab\Options\AfterGetOptionValues" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="MageWorx\OptionTemplates\Block\Adminhtml\Group\Edit\Tab\Options\Option">
+        <plugin name="afterOptionValuesTemplate" type="MageWorx\OptionBase\Plugin\Adminhtml\Product\Edit\Tab\Options\AfterGetOptionValues" sortOrder="1" disabled="false"/>
+    </type>
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="mageworx-option-base-all" xsi:type="array">
+                    <item name="class" xsi:type="string">MageWorx\OptionBase\Ui\DataProvider\Product\Form\Modifier\All</item>
+                    <item name="sortOrder" xsi:type="number">71</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MageWorx\OptionTemplates\Ui\DataProvider\Group\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="mageworx-option-base-all" xsi:type="array">
+                    <item name="class" xsi:type="string">MageWorx\OptionBase\Ui\DataProvider\Product\Form\Modifier\All</item>
+                    <item name="sortOrder" xsi:type="number">71</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MageWorx\OptionBase\Ui\DataProvider\Product\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="MageWorx\OptionBase\Ui\DataProvider\Product\Form\Modifier\All">
+        <arguments>
+            <argument name="pool" xsi:type="object">MageWorx\OptionBase\Ui\DataProvider\Product\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+</config>
